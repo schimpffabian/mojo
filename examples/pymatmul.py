@@ -51,10 +51,19 @@ def benchmark_matmul_python(M, N, K):
     C = PyMatrix(list(np.zeros((M, N))), M, N)
     secs = timeit(lambda: matmul_python(C, A, B), number=2) / 2
     gflops = ((2 * M * N * K) / secs) / 1e9
-    print(gflops, "GFLOP/s")
+
+    A_ = np.random.rand(M, K)
+    B_ = np.random.rand(K, N)
+    secs_ = timeit(lambda: A_@B_, number=2) / 2
+    gflops_ = ((2 * M * N * K) / secs_) / 1e9
+
+    print("Naive Python: ", gflops, "GFLOP/s")
+    print("Numpy: ", gflops_, "GFLOP/s")
+    print("Speedup:", gflops_ / gflops)
+    print("\n")
     return gflops
 
 
 if __name__ == "__main__":
-    print("Throughput of a 128x128 matrix multiplication in Python:")
-    benchmark_matmul_python(128, 128, 128)
+    print("Throughput of matrix multiplication in Python:")
+    benchmark_matmul_python(512, 512, 512)

@@ -236,8 +236,9 @@ fn benchmark[
 
 fn main():
     # Python
-    print("Throughput of a 128x128 matrix multiplication in Python: ")
-    let python_gflops = run_matmul_python(128, 128, 128)
+    print("Throughput of a 512x512 matrix multiplication in Python: ")
+    let python_gflops = run_matmul_python(512, 512, 512)
+    
     alias M = 512
     # Mojo variants
     benchmark[matmul_naive](
